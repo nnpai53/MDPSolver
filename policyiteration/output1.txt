@@ -1,0 +1,27 @@
+===========Displaying MDP============
+Policy at State 0 : 0.0 ; 0.0 ; 0.0 ; 0.0 ; 
+Policy at State 1 : 0.0 ; 0.0 ; 0.0 ; 
+Rewards of actions at State 0 : 20.5235547617197 ; 2.811170181816432 ; 17.12593024934453 ; 10.575700707787417 ; 
+Rewards of actions at State 1 : 14.826608373597095 ; 14.563840181760998 ; 19.798210881522635 ; 
+Value at State 0 : 0.0
+Value at State 1 : 0.0
+Transition Functions at State 0 : 
+Action 0 : 0.947327499117171 ; 0.05267250088282899 ; 
+Action 1 : 0.8739098969567702 ; 0.1260901030432298 ; 
+Action 2 : 0.21500118934904702 ; 0.784998810650953 ; 
+Action 3 : 0.9539379300324791 ; 0.04606206996752088 ; 
+
+Transition Functions at State 1 : 
+Action 0 : 0.981708822914338 ; 0.01829117708566194 ; 
+Action 1 : 0.7835639231316732 ; 0.21643607686832683 ; 
+Action 2 : 0.8967658204985384 ; 0.10323417950146163 ; 
+
+===========End MDP============
+PolicyIteration :: run() : displaying mdp values
+Policy at State 0 : 1.0 ; 0.0 ; 0.0 ; 0.0 ; 
+Policy at State 1 : 1.0 ; 0.0 ; 0.0 ; 
+Rewards of actions at State 0 : 20.5235547617197 ; 2.811170181816432 ; 17.12593024934453 ; 10.575700707787417 ; 
+Rewards of actions at State 1 : 14.826608373597095 ; 14.563840181760998 ; 19.798210881522635 ; 
+Value at State 0 : 40.752108374787746
+Value at State 1 : 35.15144116310762
+

@@ -1,0 +1,54 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package UtilityFunctions;
+
+import GUI.ContactEditorUI;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+/**
+ *
+ * @author vinit
+ */
+public class UploadFile {
+    
+    
+    public void upoloadFile(String filepath, ContactEditorUI gui){
+        File file = new File(filepath);
+        int noOfState=0;
+        int noOfAction =0;
+       
+        BufferedReader br=null;
+        try{
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(filepath)));
+            String line=null;
+            while((line=br.readLine())!=null){
+                if(line.toUpperCase().equals("NO OF STATE")){
+                    if((line=br.readLine())!=null){
+                        noOfState = Integer.parseInt(line);
+                    }
+                }
+                if(line.toUpperCase().equals("NO OF ACTION")){
+                    if((line=br.readLine())!=null){
+                        noOfState = Integer.parseInt(line);
+                    }
+                }
+            }
+        }
+        catch(FileNotFoundException ex){
+        } catch (IOException ex) {
+            Logger.getLogger(UploadFile.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+    }
+    
+}
