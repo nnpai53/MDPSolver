@@ -34,8 +34,7 @@ public class MixStrategy_Algorithm {
         seed = new SeedPoint();
     }
     
-    private void gettUniformPolicy()
-    {
+    private void gettUniformPolicy(){
         policy = new double[mdp.getNoOfActions()];
         
         int noofActioneachstate[] =  mdp.getNumOfActionsOnEachState();
@@ -44,14 +43,12 @@ public class MixStrategy_Algorithm {
         
         int state=0;
         
-        for(int i=0;i<mdp.getNoOfActions();i++)
-        {
+        for(int i=0;i<mdp.getNoOfActions();i++){
             if(count<noofActioneachstate[state]){
                 policy[i]=(1.0)/noofActioneachstate[state];
                 count++;
             }
-            else
-            {
+            else{
                 count=1;
                 state++;
                 policy[i]=(1.0)/noofActioneachstate[state];
@@ -61,8 +58,7 @@ public class MixStrategy_Algorithm {
     }
     
     
-    private double actionContribution(int state, int action)
-    {
+    private double actionContribution(int state, int action){
         double ret=0.0;
         ActionData ad = mdp.getStateList().get(state).getActionList().get(action);
 
@@ -74,7 +70,7 @@ public class MixStrategy_Algorithm {
             ret+= mdp.getGamma()*transitionvector.get(i)*valueoneachstate[i];
         }
         
-        ret = ret*this.policy[mdp.action_Number(state, action)];
+        ret = ret*this.policy[mdp.absoluteActionNumber(state, action)];
         
         return ret;
         
@@ -82,8 +78,7 @@ public class MixStrategy_Algorithm {
     
     
     
-    private ArrayList<Double> reVisedPolicyForState(int state)
-    {
+    private ArrayList<Double> reVisedPolicyForState(int state){
         
         int action = mdp.getStateList().get(state).getNoOfActions();
         
@@ -93,33 +88,28 @@ public class MixStrategy_Algorithm {
         
         double totalVal = 0;
         
-        for(int i=0;i<action;i++)
-        {
+        for(int i=0;i<action;i++){
             double temp = this.actionContribution(state,i);
             ret.add(temp);
             totalVal += temp;
         }
         
-        for(int i=0;i<action;i++)
-        {
+        for(int i=0;i<action;i++){
             double temp = ret.get(i)/(totalVal*1.0);
             pret.add(temp);
         }
         return pret;
     }
     
-    private double[] reVisedPolicy()
-    {
+    private double[] reVisedPolicy(){
         double[] ret = new double[mdp.getNoOfActions()];
         
         ArrayList<Double> retList = new ArrayList<Double>();
         int count=0;
         
-        for(int i=0; i<mdp.getNoOfStates();i++)
-        {
+        for(int i=0; i<mdp.getNoOfStates();i++){
             ArrayList<Double> temp = this.reVisedPolicyForState(i);
-            for(int j=0;j<temp.size();j++)
-            {
+            for(int j=0;j<temp.size();j++){
                 ret[count] = temp.get(j);
                 count++;
                 
@@ -131,8 +121,7 @@ public class MixStrategy_Algorithm {
     
     
     
-    private double[] valueAtEachState()
-    {
+    private double[] valueAtEachState(){
         double ret[] = new double[mdp.getNoOfStates()];
         
         int actionOneachState[] = mdp.getNumOfActionsOnEachState();
@@ -143,16 +132,13 @@ public class MixStrategy_Algorithm {
         
         double val=0.0;
         
-        for(int i=0;i<mdp.getNoOfActions();i++)
-        {
+        for(int i=0;i<mdp.getNoOfActions();i++){
             
-            if(count<actionOneachState[state])
-            {
+            if(count<actionOneachState[state]){
                 val = val+ actionContribution(state, count);
                 count++;
             }
-            else
-            {
+            else{
                 count=0;
                 ret[state]=val;
                 val =0;
@@ -167,20 +153,18 @@ public class MixStrategy_Algorithm {
     } 
     
     
-    private void setMDPData(double[] values)
-    {
+    private void setMDPData(double[] values){
         mdp.setPolicy(policy);
         mdp.setValue(values);
         
     }
     
-    public void fillSeed()
-    {
+    public void fillSeed(){
         seed.setPolicy(mdp.getPolicy());
         seed.setValue(mdp.getValue());
     }
-    private void mixAlgorithm()
-    {
+    
+    private void mixAlgorithm(){
         int count=0;
         setMDPData(valueoneachstate);
         fillSeed();
@@ -206,16 +190,14 @@ public class MixStrategy_Algorithm {
         return seed;
     }
     
-    public void runMixStrategy(double[]...seed)
-    {
+    public void runMixStrategy(double[]...seed){
         if(seed.length==0){
             this.gettUniformPolicy();
             mdp.setPolicy(policy);
             valueoneachstate =new double[mdp.getNoOfStates()];
             mixAlgorithm();
         }
-        else
-        {
+        else{
         
         }
     }

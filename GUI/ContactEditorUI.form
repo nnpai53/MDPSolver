@@ -633,6 +633,7 @@
                                   <Component id="Upload_Button" alignment="0" pref="120" max="32767" attributes="0"/>
                                   <Component id="Calculate_Button" pref="120" max="32767" attributes="0"/>
                                   <Component id="randomMDP_button" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="DrawMDP_button" alignment="0" pref="120 "max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace max="32767" attributes="0"/>
                           </Group>
@@ -648,6 +649,8 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="randomMDP_button" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
+                              <Component id="DrawMDP_button" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -674,6 +677,15 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="randomMDP_buttonActionPerformed"/>
                       </Events>
                     </Component>
+                    <Component class="javax.swing.JButton" name="DrawMDP_button">
+                      <Properties>
+                        <Property name="text" type="java.lang.String" value="Draw MDP"/>
+                      </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DrawMDP_buttonActionPerformed"/>
+                      </Events>
+                    </Component>
+                    
                   </SubComponents>
                 </Container>
               </SubComponents>

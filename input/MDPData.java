@@ -21,8 +21,7 @@ import valueiteration.ValueIterationImpl;
  * @author vinit
  */
 
-public class MDPData
-{
+public class MDPData{
     
     public MDPData(MDPData m){
         this.noOfActions = m.getNoOfActions();
@@ -141,11 +140,7 @@ public class MDPData
         }
     }
   
-    
-    
-    
-    
-    
+   
     public void populateActionStateMapList(){
         actionStateMapList = new ArrayList<ActionStateMap>();
         for(int i=0; i<noOfActions; i++){
@@ -570,53 +565,43 @@ public class MDPData
         this.state_action_mapping=in;
     }
     
-    public int[][] getState_action_mapping()
-    {
+    public int[][] getState_action_mapping(){
         return state_action_mapping;
     }
 
-    public void setState_action_mapping(int[][] stateActionMapping)
-    {
+    public void setState_action_mapping(int[][] stateActionMapping){
         state_action_mapping = stateActionMapping;
     }
 
-    public double[][] getPrimalCoeffMatrix()
-    {
+    public double[][] getPrimalCoeffMatrix(){
         return primalCoeffMatrix;
     }
 
-    public void setPrimalCoeffMatrix(double[][] primalCoeffMatrix)
-    {
+    public void setPrimalCoeffMatrix(double[][] primalCoeffMatrix){
         this.primalCoeffMatrix = primalCoeffMatrix;
     }
 
-    public double[][] getDualCoeffMatrix()
-    {
+    public double[][] getDualCoeffMatrix(){
         return dualCoeffMatrix;
     }
 
-    public void setDualCoeffMatrix(double[][] dualCoeffMatrix)
-    {
+    public void setDualCoeffMatrix(double[][] dualCoeffMatrix){
         this.dualCoeffMatrix = dualCoeffMatrix;
     }
 
-    public ArrayList<ActionStateMap> getActionStateMapList()
-    {
+    public ArrayList<ActionStateMap> getActionStateMapList(){
         return actionStateMapList;
     }
 
-    public void setActionStateMapList(ArrayList<ActionStateMap> actionStateMapList)
-    {
+    public void setActionStateMapList(ArrayList<ActionStateMap> actionStateMapList){
         this.actionStateMapList = actionStateMapList;
     }
 
-    public double[][] getTransitionMatrix()
-    {
+    public double[][] getTransitionMatrix(){
         return transitionMatrix;
     }
 
-    public void setTransitionMatrix(double[][] transitionMatrix)
-    {
+    public void setTransitionMatrix(double[][] transitionMatrix){
         this.transitionMatrix = transitionMatrix;
     }
 
@@ -659,14 +644,14 @@ public class MDPData
         }
     }
     
-    public int action_Number(int state, int action_On_State){
+    public int absoluteActionNumber(int state, int actionOnState){
         int ret=0;
-        int action_On_each_state[]=this.getNumOfActionsOnEachState();
+        int actionOnEachState[]=this.getNumOfActionsOnEachState();
         
         for(int i=0;i<state;i++){
-            ret= ret +action_On_each_state[i];
+            ret= ret +actionOnEachState[i];
         }
-        ret+=action_On_State;
+        ret+=actionOnState;
         return ret;
     }
 

@@ -5,6 +5,8 @@
 package GUI;
 
 import UtilityFunctions.FileMerger;
+import UtilityFunctions.ParseDrawnFigure;
+import UtilityFunctions.UploadFile;
 import gnuplotutils.Gnu_Script_Writer;
 import gnuplotutils.OsUtils;
 import input.MDPData;
@@ -25,8 +27,11 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.imageio.*;
+import javax.swing.JFileChooser;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import com.cburch.autosim.*;
 import valueiteration.ValueIterationImpl;
 
 /**
@@ -155,8 +160,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
          
     }
     
-    public void addCompareImage(String path1, String path2)
-    {
+    public void addCompareImage(String path1, String path2){
     	    String fileExtension = OsUtils.getGnuPlotFileExtension();
             String imageFileExtension = OsUtils.getImageFileExtension();
             String pathSeparator = OsUtils.getPathSeparator();
@@ -212,6 +216,7 @@ public class ContactEditorUI extends javax.swing.JFrame {
         Upload_Button = new javax.swing.JButton();
         Calculate_Button = new javax.swing.JButton();
         randomMDP_button = new javax.swing.JButton();
+        DrawMDP_button = new javax.swing.JButton();
         Compute_Optimal_panel = new javax.swing.JPanel();
         jLayeredPane1 = new javax.swing.JLayeredPane();
         Policy_whole_panel = new javax.swing.JPanel();
@@ -530,6 +535,11 @@ public class ContactEditorUI extends javax.swing.JFrame {
         jPanel14.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
 
         Upload_Button.setText("Upload MDP");
+        Upload_Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Upload_ButtonActionPerformed(evt);
+            }
+        });
 
         Calculate_Button.setText("Calculate");
         Calculate_Button.addActionListener(new java.awt.event.ActionListener() {
@@ -549,6 +559,13 @@ public class ContactEditorUI extends javax.swing.JFrame {
                 randomMDP_buttonActionPerformed(evt);
             }
         });
+        
+        DrawMDP_button.setText("Draw MDP");
+        DrawMDP_button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DrawMDP_buttonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
         jPanel14.setLayout(jPanel14Layout);
@@ -559,7 +576,8 @@ public class ContactEditorUI extends javax.swing.JFrame {
                 .addGroup(jPanel14Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(Upload_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
                     .addComponent(Calculate_Button, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
-                    .addComponent(randomMDP_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(randomMDP_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(DrawMDP_button, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel14Layout.setVerticalGroup(
@@ -571,6 +589,8 @@ public class ContactEditorUI extends javax.swing.JFrame {
                 .addComponent(Calculate_Button)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(randomMDP_button)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(DrawMDP_button)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1291,6 +1311,22 @@ public class ContactEditorUI extends javax.swing.JFrame {
                 addImageOnValuePanel(0);
 
     }//GEN-LAST:event_jButton7ActionPerformed
+    
+    
+    private void Upload_ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Upload_ButtonActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fc = new JFileChooser(System.getProperty("user.home"));
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("TEXT FILES", "txt", "text");
+        fc.setFileFilter(filter);
+        int returnVal = fc.showOpenDialog(this);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            System.out.println("File Picker == "+file.getPath());
+            new UploadFile().upoloadFile(file, this);
+        }
+        
+    }//GEN-LAST:event_Upload_ButtonActionPerformed
+
 
     
     private void generateMDPFromRandom(){
@@ -1343,6 +1379,22 @@ public class ContactEditorUI extends javax.swing.JFrame {
     }
     
     
+    private void DrawMDP(){
+    	//System.setProperty("com.apple.mrj.application.apple.menu.about.name", "MDP Editor");
+    	MainFrameCaller mfc = new MainFrameCaller(this);
+        int value = mfc.showMainFrame(this);
+        System.out.println("Value now received is:" + value);
+        if (value == 0) {
+            Automaton automaton = mfc.getAutomaton();
+            //System.out.println("File Picker == "+file.getPath());
+            new ParseDrawnFigure().parseFigure(automaton, this);
+        }
+        
+        //MainFrame win = new MainFrame(automaton);
+        //win.setVisible(true);
+    }
+    
+    
     
     
     private MDPData generateMDPFromGUI(){
@@ -1352,7 +1404,12 @@ public class ContactEditorUI extends javax.swing.JFrame {
         
         int noofaction=0;
         
-        noofstate =  (Integer.parseInt(this.noofstate.getText()));
+        try{
+        	noofstate =  (Integer.parseInt(this.noofstate.getText()));
+        }
+        catch(NumberFormatException ex)
+        {
+        }
         
         gamma = .5;
         
@@ -1731,6 +1788,11 @@ public class ContactEditorUI extends javax.swing.JFrame {
         generateMDPFromRandom();
     }//GEN-LAST:event_randomMDP_buttonActionPerformed
 
+    private void DrawMDP_buttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_randomMDP_buttonActionPerformed
+        // TODO add your handling code here:
+        DrawMDP();
+    }
+    
     private void Policy_whole_panelFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_Policy_whole_panelFocusGained
         // TODO add your handling code here:
        // this.addImageOnValuePanel();
@@ -1906,10 +1968,12 @@ public class ContactEditorUI extends javax.swing.JFrame {
     private javax.swing.JPanel policy_panel2;
     private javax.swing.JButton prev_compare;
     private javax.swing.JButton randomMDP_button;
+    private javax.swing.JButton DrawMDP_button;
     private javax.swing.JButton refresh;
     private javax.swing.JButton refresh1;
     private javax.swing.JTextField rewards;
     private javax.swing.JTextArea transitiontable;
     private javax.swing.JPanel valvsiterarion;
+    
     // End of variables declaration//GEN-END:variables
 }

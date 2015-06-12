@@ -1,0 +1,33 @@
+I wrote Automaton Simulator in 2001, when I was still relatively new to
+Java programming.  When I posted it on my Web page, I quickly slapped
+a restrictive license on the program, just because I didn't feel like
+taking the time to study the issue of licensing more closely. I never
+thought the program would be taken very seriously, anyway. My development
+work then shifted to Logisim (www.cburch.com/logisim/), a much more ambitious
+program for simulating digital circuits.
+
+In the meantime, this project lay untouched, though server logs reveal
+that it continues to be downloaded fairly frequently. In late 2006, at
+the prompting of a couple of e-mails requesting source code access, and
+on observing that clearly I'm not going develop this program myself
+further, I decided that I might as well take a bit of time to release
+the source. So this evening, I did some brief editing to repair the
+easier-to-find stylistic problems from my early days with Java, and
+I repackaged the program for open-source distribution.
+
+The upshot of all this is twofold. First, I'm a bit embarrassed by my Java
+mastery at the time I wrote this program, and my editing tonight has been
+fairly cursory; the design is not the best. And second, if anybody wants
+to take this project and run with it, I'd be happy to pass the torch on.
+
+---Carl Burch, November 14, 2006
+
+(By the way, I have the following notes from 2001 of features that I
+thought would be nice to include in a subsequent version. Make of it
+what you will.
+  - rotate initial-state arrow
+  - exporting GIFs
+  - arrow keys working while working tape
+  - justification and font menus on right-click of canvas label
+I'd also add the obvious point that the program could use a more
+compelling title....)

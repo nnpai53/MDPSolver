@@ -23,9 +23,13 @@ import java.util.logging.Logger;
 public class UploadFile {
 
 
-    public void uploadFile(String filepath, ContactEditorUI gui){
-        File file = new File(filepath);
+    public void upoloadFile(File file, ContactEditorUI gui){
         int noOfState=0;
+        String action="";
+        String state="";
+        String actionsoneachstate="";
+        String rewards="";
+        String tt="";
         int noOfAction =0;
         int actions[] = new int[1];
         double reward[] = new double[1];
@@ -33,8 +37,9 @@ public class UploadFile {
         double transitionMatrix[][]=new double[1][1];
         String val[];
         BufferedReader br=null;
+        boolean is_correct=true;
         try{
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(filepath)));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
             String line=null;
             line = br.readLine();
             if(line!=null){
@@ -43,8 +48,20 @@ public class UploadFile {
                     if(line!=null){
                         noOfState = Integer.parseInt(line);
                         actions = new int[noOfState];
+                        //gui.getNoofstate().setText(line);
+                        state=line;
                     }
+                    else{
+                        is_correct =false;
+                    }
+                    
                 }
+                else{
+                    is_correct =false;
+                }
+            }
+            else{
+                is_correct = false;
             }
             line = br.readLine();
             if(line!=null){
@@ -53,60 +70,90 @@ public class UploadFile {
                     if(line!=null){
                     	noOfAction = Integer.parseInt(line);
                         reward = new double[noOfAction];
+                        action = line;
+                    }
+                    else{
+                        is_correct =false;
                     }
                 }
+                else{
+                    is_correct = false;
+                }
+            }
+            else{
+                is_correct= false;
             }
             line = br.readLine();
             if(line!= null){
                 if(line.toUpperCase().equals("ACTION ON EACH STATE")){
-                	    val = br.readLine().trim().split(" ");
-                	    if(val.length==noOfState){
-                	    	    for(int i=0;i<val.length;i++){
-                	    	    	try{
-                	    		        actions[i]=Integer.parseInt(val[i]);
-                	    	    	}
-                	                catch(Exception ex){
-                	        	        System.out.println("Exception caught " + ex);
-                	                }
-                	    	    }
-                	    }
+                    line =  br.readLine();
+                    if(line== null)
+                        is_correct = false;
+                    else{
+                        val = line.trim().split(" ");
+                        if(val.length==noOfState){
+                            actionsoneachstate=line;
+                        }
+                        else{ is_correct =false;}
+                    }
                 }
+                else{is_correct= false;}
             }
+            else{is_correct=false;}
             line = br.readLine();
             if(line !=null){
             	if(line.toUpperCase().equals("REWARD OF EACH ACTION")){
-                    val = br.readLine().trim().split(" ");
-                    if(val.length==noOfAction){
-                    	for(int i=0;i<val.length;i++){
-        	    	    	try{
-        	    	    		reward[i]=Double.parseDouble(val[i]);
-        	    	    	}
-        	                catch(Exception ex){
-        	        	        System.out.println("Exception caught " + ex);
-        	                }
-        	    	    }
+                    line =  br.readLine();
+                    if(line == null) is_correct = false;
+                    else{
+                        val = line.trim().split(" ");
+                        if(val.length==noOfAction){
+                            rewards = line;
+        	    	}
+                        else{is_correct=false;}
                     }
             	}
+                else{is_correct=false;}
             }
+            else{is_correct=false;}
             line = br.readLine();
             if(line!=null){
             	if(line.toUpperCase().equals("TRANSITION TABLE")){
-            		try{
-                        for(int i=0;i<noOfAction;i++){
-                        	val = br.readLine().trim().split(" ");
-                        	if(val.length == noOfState){
-                        	    for(int j=0;j<noOfState;j++){
-                        	    	transitionMatrix[i][j]=Double.parseDouble(val[j]);
-                        	    }
-                        	}
+                    int countline =0;
+                    line =br.readLine();
+                    while(line!= null){
+                        countline++;
+                        val = line.trim().split(" ");
+                        
+                        if(val.length!= noOfState){
+                            is_correct = false;
+                            break;
                         }
-            		}
-            		catch(Exception ex){
-            			System.out.println("Exception caught"+ex);
-            		}
+                        else{
+                            tt=tt+line+"\n";
+                            line = br.readLine();
+                        }
+                    }
+                    if(countline!=noOfState)
+                        is_correct = false;
             	}
+                else{is_correct=false;}
             }
-            MDPData mdp = new MDPData(noOfState, noOfAction, reward, transitionMatrix, actions, gamma);
+            else{is_correct=false;}
+            
+            if(is_correct=true){
+                gui.getNoofstate().setText(state);
+                gui.getNoofactions().setText(action);
+                gui.getNoofactiononeachstate().setText(actionsoneachstate);
+                gui.getRewards().setText(rewards);
+                gui.getTransitiontable().setText(tt.substring(0, tt.length()-1));
+            }
+            else{
+                gui.getTransitiontable().setText("Either MDP DATA IS NOT CORRECT OR DATA FORMAT IS NOT CORRECT");
+            }
+            
+           // MDPData mdp = new MDPData(noOfState, noOfAction, reward, transitionMatrix, actions, gamma);
+           // mdp.displayMDP();
         }
         catch(FileNotFoundException ex){
         } catch (IOException ex) {

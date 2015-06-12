@@ -28,7 +28,7 @@ public class Simplex_Algorithm {
     private void initial_Policy(){
         policy =  new double[mdp.getNoOfActions()];
         for(int i=0; i<mdp.getNoOfStates();i++){
-            int action_index = mdp.action_Number(i, 0);
+            int action_index = mdp.absoluteActionNumber(i, 0);
             policy[action_index]=1.0;
         }
     }

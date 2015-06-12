@@ -41,8 +41,7 @@ public class GUI_Algo_Connector {
         algoname =  algo;
         
         String path = "";
-        if(algo.equals("simplex"))
-        {
+        if(algo.equals("simplex")){
             System.out.println("IN GUI CONNECTOR");
             MDPData simplex_mdp = new MDPData(mdp);
             new Simplex_Algorithm(simplex_mdp).runSimplexAlgorithm(0);
@@ -53,8 +52,7 @@ public class GUI_Algo_Connector {
 
         }
         
-        else if(algo.equals("primal affine"))
-        {
+        else if(algo.equals("primal affine")){
             MDPData primal_mdp = new MDPData(mdp);
             new PrimalAffine_Algorithm(primal_mdp).runPrimalAffine();
         
@@ -64,8 +62,7 @@ public class GUI_Algo_Connector {
 
         }
         
-        else if(algo.equals("cute algo"))
-        {
+        else if(algo.equals("cute algo")){
             path = "MixStrategy";
             MDPData cute_mdp = new MDPData(mdp);        
             new MixStrategy_Algorithm(cute_mdp).runMixStrategy();
@@ -74,8 +71,7 @@ public class GUI_Algo_Connector {
 
         }
         
-        else if(algo.equals("value iteration"))
-        {
+        else if(algo.equals("value iteration")){
             path = "ValueIteration";
             MDPData value_mdp = new MDPData(mdp);                    
             new ValueIterationImpl(value_mdp).run();

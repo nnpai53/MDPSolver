@@ -10,6 +10,9 @@ package GUI;
  */
 public class Main {
     
+	public static final String VERSION_NAME = "1.2";
+	public static final String FILE_VERSION_NAME = "v1.0";
+	
     public static void main(String args[])throws Exception{
                 java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
